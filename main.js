@@ -1,7 +1,7 @@
 
-//const prompt  = require ("prompt-sync")();
+//  1. Importar PI e IVA en main.js
 
-import { PI, IVA, _DIAS_SEMANA} from './constantes.js'
+import { PI, IVA, DIAS_SEMANA} from './constantes.js'
 
 console.log("---Area de un circulo---");
 const radio= 5; 
@@ -10,18 +10,14 @@ console.log(`Area del circulo: ${area}`);
 
 console.log("---Calcular precio con IVA---");
 const precio = 200;
-const pecrioConIVA  = precio + (precio * IVA);
-console.log (`Precio con IVA¨: ${pecrioConIVA} `);
+const precioConIVA  = precio + (precio * IVA);
+console.log (`Precio con IVA: ${precioConIVA} `);
 
 console.log ("---Dia de la semana---");
-console.log(`El tercer día de la semana es: ${_DIAS_SEMANA[2]}`);
+console.log(`El tercer día de la semana es: ${DIAS_SEMANA[2]}`);
 
 // Ejercicio 2: Exportar Funciones Matemáticas
-//  1. En operaciones-matematicas.js, exportar:- sumar(a, b)- restar(a, b)- multiplicar(a, b)
-// - areaCirculo(radio) (usar PI importado)
-//  Tareas:
-//  1. Importar las 4 funciones en main.js
-//  2. Usar cada función con valores de ejemplo y mostrar resultados
+
 
 console.log ("---Operaciones matematicas---");
 
@@ -33,25 +29,14 @@ console.log('Multiplicación de 9 * 7 =', multiplicar(9, 7));
 console.log('Área de círculo con radio 7 =', areaCirculo(7)); 
 
 //  Ejercicio 3: Calculadora de Impuestos
-//  1. En constantes.js, agregar:- DESCUENTO = 0.1 (10%)
-//  2. En operaciones-matematicas.js, exportar:- calcularTotal(precio, cantidad)- aplicarImpuestos(total) (usar IVA)- aplicarDescuento(total) (usar DESCUENTO)
-//  En main.js:
-//  •Importar las constantes y funciones necesarias.
-//  •Calcular:
-//  •Precio total de 3 productos.
-//  •Aplicar impuestos al total.
-//  •Aplicar descuento al total con impuestos.
-//  •Mostrar todos los pasos intermedios y el resultado final
-
-console.log ("---Calculadora de impuestos---")
-
 import { calcularTotal, aplicarImpuestos, aplicarDescuento } from './operacionesMatematicas.js';
+console.log("----Calculadora de Impuestos----");
 
 const precioUnitario = 7000;
 const cantidad = 5;
 
 const totalSinImpuestos = calcularTotal(precioUnitario, cantidad);
-console.log(`Total sin impuestos (100 * 3) = ${totalSinImpuestos}`);
+console.log(`Total sin impuestos (7000 * 7) = ${totalSinImpuestos}`);
 
 const totalConIVA = aplicarImpuestos(totalSinImpuestos);
 console.log(`Total con IVA (19%) = ${totalConIVA}`);
@@ -59,8 +44,36 @@ console.log(`Total con IVA (19%) = ${totalConIVA}`);
 const totalFinal = aplicarDescuento(totalConIVA);
 console.log(`Total final con descuento (10%) = ${totalFinal}`);
 
+// Ejercicio 4: Gestión de Usuarios
 
+console.log("----Gestion De Usiarios----");
+import { ROLES } from './usuariosCostantes.js';
+import { crearUsuario,esAdmin } from './usuarios.js';
+const usuario1 = crearUsuario ("Karen", ROLES.ADMIN);
+const usuario2 = crearUsuario ("Chris", ROLES.CLIENTE);
+console.log("Usuario 1:", usuario1);
+console.log("Usuario 2:", usuario2);
 
+console.log("----Aplicar Descuento Por Rol---");
 
+import { aplicarDescuentoPorRol } from './operacionesMatematicas.js';
+//Admin
+const subtotalAdmin = calcularTotal(25, 4);
+const totalImpuestoAdmin = aplicarImpuestos(subtotalAdmin);
+const totalFinalAdmin = aplicarDescuentoPorRol(totalImpuestoAdmin, usuario1);
+
+// Cliente compra 3 productos a $50
+const subtotalCliente = calcularTotal(50, 3);
+const totalImpuestoCliente = aplicarImpuestos(subtotalCliente);
+const totalFinalCliente = aplicarDescuentoPorRol(totalImpuestoCliente, usuario2);
+console.log("---Descuento Admin 20% ---- ");
+console.log("Admin - Subtotal:", subtotalAdmin);
+console.log("Admin - Con impuestos:", totalImpuestoAdmin);
+console.log("Admin - Con descuento admin :", totalFinalAdmin);
+
+console.log("---Descuento Cliente 10% ---- ");
+console.log("Cliente - Subtotal:", subtotalCliente);
+console.log("Cliente - Con impuestos:", totalImpuestoCliente);
+console.log("Cliente - Con descuento cliente:", totalFinalCliente);
 
 
